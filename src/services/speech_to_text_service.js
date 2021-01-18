@@ -16,7 +16,13 @@ const config = {
   },
 };
 
-const client = new TranscribeClient({ region: config.REGION });
+const client = new TranscribeClient({
+  region: config.REGION,
+  credentials: {
+    accessKeyId: "AKIASDSCMQLJFULDIZGI",
+    secretAccessKey: "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",
+  },
+});
 
 const request_for_transcribe = async (mediaUrl) => {
   try {
