@@ -20,7 +20,9 @@ const client = new TranscribeClient({ region: config.REGION });
 
 const request_for_transcribe = async (mediaUrl) => {
   try {
+    console.log("Requesting transcript");
     const jobName = "voice-analyse-" + Date.now().toString();
+    console.log("Requesting transcript " + jobName);
     let data = await client.send(
       new StartTranscriptionJobCommand({
         ...config.params,
@@ -31,8 +33,10 @@ const request_for_transcribe = async (mediaUrl) => {
         },
       })
     );
+    console.log("Requesting transcript " + data);
     return Promise.resolve(jobName);
   } catch (err) {
+    console.log("Requesting transcript error" + err.message);
     return Promise.reject(`Service error${err.message}`);
   }
 };
