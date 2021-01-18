@@ -37,7 +37,7 @@ const request_for_transcribe = async (mediaUrl) => {
     return Promise.resolve(jobName);
   } catch (err) {
     console.log("Requesting transcript error" + err.message);
-    return Promise.reject(`Service error${err.message}`);
+    return Promise.reject(`Service error ${err.stack}`);
   }
 };
 
