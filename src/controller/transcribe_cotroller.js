@@ -5,8 +5,10 @@ const {
 } = require("../services/speech_to_text_service");
 
 module.exports.uploadfile = async (req, res) => {
+  console.log("Uploading........");
   if (req.file) {
     const encoded = req.file.location;
+    console.log(`Uploading........ ${req.file.location}`);
     try {
       const content = await request_for_transcribe(encoded);
       return res.json({
