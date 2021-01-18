@@ -1,17 +1,21 @@
 const multer = require("multer");
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
 
+var s3 = new AWS.S3();
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    console.log("Destination");
-    cb(null, "temp");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    console.log(uniqueSuffix);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
-  },
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "voiceanalysisapp",
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      const extension = file.originalname.split(".")[1];
+      cb(null, Date.now().toString() + "." + extension);
+    },
+  }),
 });
 
-var upload = multer({ storage: storage });
 module.exports = { upload };
