@@ -5,6 +5,7 @@ const AWS = require("aws-sdk");
 var s3 = new AWS.S3();
 
 var upload = multer({
+  limits: { fieldSize: 25 * 1024 * 1024 },
   storage: multerS3({
     s3: s3,
     bucket: "voiceanalysisapp",
